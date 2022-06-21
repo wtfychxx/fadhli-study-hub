@@ -18,5 +18,10 @@ use App\Http\Controllers\HomeController;
 Route::get('/', [LoginController::class, 'login'])->name('login');
 Route::post('actionLogin', [LoginController::class, 'actionLogin'])->name('actionLogin');
 
-Route::get('home', [HomeController::class, 'index'])->name('home')->middleware('auth');
+Route::middleware('auth')->group(function(){
+
+    Route::get('home', [HomeController::class, 'index'])->name('home');
+    Route::get('books', [HomeController::class, 'index'])->name('home');
+
+});
 Route::get('actionLogout', [LoginController::class, 'actionLogout'])->name('actionLogout')->middleware('auth');
