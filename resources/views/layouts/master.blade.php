@@ -11,6 +11,7 @@
     <link rel="icon" type="image/png" sizes="16x16" href="{{ url('templates/images/favicon.png') }}">
     <title> Book-U - Library Management System </title>
     <link href="{{ url('templates/css/style.min.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url('templates/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css') }}">
 </head>
 <body>
     <div class="preloader">
@@ -59,7 +60,14 @@
     <script src="{{ url('templates/js/sidebarmenu.js') }}"></script>
     <!--Custom JavaScript -->
     <script src="{{ url('templates/js/custom.min.js') }}"></script>
+
+    <script src="{{ url('templates/extra-libs/datatables.net/js/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ url('templates/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
+
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     
     @yield('jsLibrary')
+
+    @yield('jsFunctions')
 </body>
 </html>

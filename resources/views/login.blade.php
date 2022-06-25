@@ -42,7 +42,7 @@
                                 </div>
                                 <div class="form-group last-mb-3">
                                     <label for="username"> Password </label>
-                                    <input type="text" name="password" id="password" class="form-control" placeholder="Your password" required>
+                                    <input type="password" name="password" id="password" class="form-control" placeholder="Your password" required>
                                 </div>
 
                                 <div class="d-sm-flex mb-5 align-items-center">

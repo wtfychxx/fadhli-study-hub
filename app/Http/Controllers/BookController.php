@@ -16,6 +16,9 @@ class BookController extends Controller
     public function index()
     {
         //
+        $data = Book::all();
+        
+        return view('layouts.books.index', ['data' => $data]);
     }
 
     /**
@@ -36,7 +39,63 @@ class BookController extends Controller
      */
     public function store(StoreBookRequest $request)
     {
+        $id = $request->input('id');
+        
+        $this->validate($request, [
+            'title' => 'required|string|max:255',
+            'authors' => 'required|max:255',
+            'publisher' => 'required|max:255',
+            'release_year' => 'required|numeric',
+            'page' => 'required|numeric'
+        ]);
         //
+        $data = [
+            'title' => $request->input('title'),
+            'authors' => $request->input('authors'),
+            'publisher' => $request->input('publisher'),
+            'release_year' => $request->input('release_year'),
+         'page' => $request->input('page')
+        ];
+
+        if(trim($id) === ''){
+            $book = Book::create($data);
+    
+            if($book){
+                return redirect()
+                    ->route('book')
+                    ->with([
+                        'success' => 'New book successfully created!'
+                    ]);
+            }else{
+                return redirect()
+                    ->back()
+                    ->withInput()
+                    ->with([
+                        'error' => 'Some problem occured, please try again'
+                    ]);
+            }
+        }else{
+            $book = Book::findOrFail($id);
+
+            $book->update($data);
+
+            if($book){
+                return redirect()
+                    ->route('book')
+                    ->with([
+                        'success' => 'New book successfully updated!'
+                    ]);
+            }else{
+                return redirect()
+                    ->back()
+                    ->withInput()
+                    ->with([
+                        'error' => 'Some problem occured, please try again'
+                    ]);
+            }
+        }
+
+
     }
 
     /**
@@ -48,6 +107,7 @@ class BookController extends Controller
     public function show(Book $book)
     {
         //
+        return view('layouts.books.form', ['book' => $book]);
     }
 
     /**
@@ -59,6 +119,39 @@ class BookController extends Controller
     public function edit(Book $book)
     {
         //
+        $this->validate($request, [
+            'title' => 'required|string|max:255',
+            'authors' => 'required|max:255',
+            'publisher' => 'required|max:255',
+            'release_year' => 'required|numeric',
+            'page' => 'required|numeric'
+        ]);
+        //
+        $data = [
+            'title' => $request->input('title'),
+            'authors' => $request->input('authors'),
+            'publisher' => $request->input('publisher'),
+            'release_year' => $request->input('release_year'),
+            'page' => $request->input('page')
+        ];
+
+        $post = Post::findOrFail($book->id);
+        $book = Book::update($data);
+
+        if($book){
+            return redirect()
+                ->route('book')
+                ->with([
+                    'success' => 'New book successfully created!'
+                ]);
+        }else{
+            return redirect()
+                ->back()
+                ->withInput()
+                ->with([
+                    'error' => 'Some problem occured, please try again'
+                ]);
+        }
     }
 
     /**
