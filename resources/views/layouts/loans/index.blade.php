@@ -1,6 +1,6 @@
 @extends('layouts.master')
 
-@section('title', 'Catalog')
+@section('title', 'My Book')
 
 @section('content')
     <div class="row">
@@ -20,58 +20,24 @@
             </div>
         @endif
         <div class="col-lg-12">
-            <div class="card d-none">
-                <div class="card-body">
-                    <form action="{{ route('catalog/filter') }}" method="GET">
-                        <div class="row align-items-end">
-                            <div class="col-lg-3">
-                                <label class="col-form-label"> Title </label>
-                                <input type="text" name="title" id="title_filter" class="form-control">
-                            </div>
-                            <div class="col-lg-3">
-                                <label class="col-form-label"> Authors </label>
-                                <input type="text" name="authors" id="authors_filter" class="form-control">
-                            </div>
-                            <div class="col-lg-3">
-                                <label class="col-form-label"> Release Year </label>
-                                <input type="text" name="release_year" id="release_year_filter" class="form-control">
-                            </div>
-                            <div class="col-lg-3 mt-sm-3">
-                                <button class="btn btn-primary btn-block">Search</button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-
             <div class="card">
                 <div class="card-body">
                     <div class="table-responsive">
                         <table class="table table-striped">
                             <thead>
                                 <tr>
-                                    <th> Title </th>
-                                    <th> Authors </th>
-                                    <th> Publisher </th>
-                                    <th> Release Year </th>
-                                    <th> Total Page </th>
-                                    <th> Stock </th>
-                                    <th>  </th>
+                                    <th> Book title </th>
+                                    <th> Loan Date </th>
+                                    <th> Expire Date </th>
                                 </tr>
                             </thead>
                             
                             <tbody id="show_data">
-                                @foreach($book as $row)
+                                @foreach($loan as $row)
                                     <tr>
-                                        <td>{{ $row->title }}</td>
-                                        <td>{{ $row->authors }}</td>
-                                        <td>{{ $row->publisher }}</td>
-                                        <td>{{ $row->release_year }}</td>
-                                        <td>{{ $row->page }}</td>
-                                        <td>{{ $row->stock }}</td>
-                                        <td>
-                                            <button class="btn btn-success btn-rounded-lg item-edit" id="btn_pinjam" data-id="{{ $row->id }}"> Borrow </button>
-                                        </td>
+                                        <td><a href="javascript:void(0)">{{ $row->title }}</a></td>
+                                        <td>{{ $row->loan_date }}</td>
+                                        <td class="{{ $row->expire_date < date('Y-m-d') ? 'text-danger' : 'text-success'}}">{{ $row->expire_date }}</td>
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -139,35 +105,4 @@
             </div>
         </div>
     </div>
-@endsection
-
-@section('jsLibrary')
-<script src="{{ url('templates/libs/moment/moment.js') }}"></script>
-@endsection
-
-@section('jsFunctions')
-<script>
-    const data = {!! json_encode($book->toArray()) !!}
-    const today = moment().format('YYYY-MM-DD')
-    $(document).ready(function(){
-        $('table').dataTable()
-
-        $('#show_data').on('click', '.item-edit', function(){
-            const id = $(this).data('id')
-
-            const filterData = data.filter(entry => entry.id === id)
-            const filteredData = filterData[0]
-            console.log(filteredData)
-
-            $('#book_id').val(filteredData['id'])
-            $('#title').val(filteredData['title'])
-            $('#authors').val(filteredData['authors'])
-            $('#publisher').val(filteredData['publisher'])
-            $('#release_year').val(filteredData['release_year'])
-            $('#expire_date').val(moment(today).add(1, 'week').format('YYYY-MM-DD'))
-
-            $('#modalAdd').modal('show')
-        })
-    })
-</script>
 @endsection

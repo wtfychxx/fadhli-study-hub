@@ -29,11 +29,11 @@
                     </a>
                     <ul class="collapse first-level base-level-line" aria-expanded="false">
                         <li class="sidebar-item"><a class="sidebar-link" href="{{ route('catalog') }}"> Katalog </a></li>
-                        <li class="sidebar-item"><a class="sidebar-link" href="{{ route('book') }}"> MyBook </a></li>
+                        <li class="sidebar-item"><a class="sidebar-link" href="{{ route('mybook') }}"> MyBook </a></li>
                     </ul>
                 </li>
 
-                <li class="sidebar-item">
+                <li class="sidebar-item d-none">
                     <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
                         <i data-feather="user" class="feather-icon"></i><span class="hide-menu"> Account </span>
                     </a>

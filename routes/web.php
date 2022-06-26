@@ -5,6 +5,7 @@ use App\Http\Controllers\CatalogController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\LoanController;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,6 +37,13 @@ Route::middleware('auth')->group(function(){
 
     Route::group(['prefix' => 'catalog'], function(){
         Route::get('/', [CatalogController::class, 'index'])->name('catalog');
+        Route::post('/store', [CatalogController::class, 'store'])->name('catalog/store');
+        Route::get('/filter', [CatalogController::class, 'filter'])->name('catalog/filter');
+        Route::post('/destroy/{book}', [CatalogController::class, 'destroy'])->name('catalog/destroy');
+    });
+
+    Route::group(['prefix' => 'mybook'], function(){
+        Route::get('/', [LoanController::class, 'index'])->name('mybook');
         Route::post('/store', [CatalogController::class, 'store'])->name('catalog/store');
         Route::get('/filter', [CatalogController::class, 'filter'])->name('catalog/filter');
         Route::post('/destroy/{book}', [CatalogController::class, 'destroy'])->name('catalog/destroy');

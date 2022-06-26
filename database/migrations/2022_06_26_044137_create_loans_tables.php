@@ -22,6 +22,7 @@ class CreateLoansTables extends Migration
             $table->unsignedBigInteger('book__id');
             $table->date('expire_date')->format('Y-m-d')->default($date);
             $table->unsignedBigInteger('user__id');
+            $table->string('status')->default('active');
             $table->timestamps();
             $table->foreign('book__id')
                 ->references('id')->on('books');
