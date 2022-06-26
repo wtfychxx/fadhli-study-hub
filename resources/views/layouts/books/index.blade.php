@@ -66,8 +66,10 @@
                     title: 'Are you sure?',
                     showCancelButton: true,
                     cancelButtonText: 'Cancel'
-                }).then(() => {
-                    $(`#frm_delete${id}`).submit()
+                }).then((result) => {
+                    if(result.value){
+                        $(`#frm_delete${id}`).submit()
+                    }
                 })
             })
         })

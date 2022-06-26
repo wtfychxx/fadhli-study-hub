@@ -67,7 +67,7 @@ class CatalogController extends Controller
             return redirect()
                 ->route('catalog')
                 ->with([
-                    'success' => 'Successfully apply for a loan'
+                    'success' => 'Successfully apply for a loan, you can check your book list in MyBook Menu'
                 ]);
         }else{
             return redirect()
