@@ -22,7 +22,8 @@ class BookFactory extends Factory
             'authors' => $this->faker->name(),
             'publisher' => $this->faker->text(),
             'release_year' => $this->faker->numberBetween(1990, 2022),
-            'page' => $this->faker->randomNumber(4, false)
+            'page' => $this->faker->randomNumber(4, false),
+            'stock' => $this->faker->randomNumber(2, false)
         ];
     }
 }

@@ -24,6 +24,7 @@
                             <th> Publisher </th>
                             <th> Release Year </th>
                             <th> Total Page </th>
+                            <th> Stock </th>
                             <th></th>
                         </tr>
                     </thead>
@@ -35,6 +36,7 @@
                                 <td>{{ $row->publisher }}</td>
                                 <td>{{ $row->release_year }}</td>
                                 <td>{{ $row->page }}</td>
+                                <td>{{ $row->stock }}</td>
                                 <td>
                                     <a class="btn btn-danger btn-rounded-lg item-delete" data-id="{{ $row->id }}" href="javascript:void(0)"> Delete </a>
 

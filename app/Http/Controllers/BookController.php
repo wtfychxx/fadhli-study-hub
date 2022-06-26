@@ -46,7 +46,8 @@ class BookController extends Controller
             'authors' => 'required|max:255',
             'publisher' => 'required|max:255',
             'release_year' => 'required|numeric',
-            'page' => 'required|numeric'
+            'page' => 'required|numeric',
+            'stock' => 'required|numeric'
         ]);
         //
         $data = [
@@ -54,7 +55,8 @@ class BookController extends Controller
             'authors' => $request->input('authors'),
             'publisher' => $request->input('publisher'),
             'release_year' => $request->input('release_year'),
-         'page' => $request->input('page')
+            'page' => $request->input('page'),
+            'stock' => $request->input('stock')
         ];
 
         if(trim($id) === ''){
@@ -135,7 +137,7 @@ class BookController extends Controller
             'page' => $request->input('page')
         ];
 
-        $post = Post::findOrFail($book->id);
+        $post = Book::findOrFail($book->id);
         $book = Book::update($data);
 
         if($book){
@@ -175,5 +177,10 @@ class BookController extends Controller
     public function destroy(Book $book)
     {
         //
+        print_r('masuk');
+        $book = Book::findOrFail($book->id);
+        $book->delete();
+
+        return redirect('book')->with('success', 'Game Data is successfully deleted');
     }
 }

@@ -72,6 +72,18 @@
                     </div>
 
                     <div class="row mt-3">
+                        <label class="col-form-label col-lg-3"> Stock </label>
+                        <div class="col-lg-9">
+                            <input type="text" name="release_year" id="release_year" class="form-control @error('stock') is-invalid @enderror" value="{{ $book->stock }}" required>
+                            @error('stock')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                            @enderror
+                        </div>
+                    </div>
+
+                    <div class="row mt-3">
                         <div class="col-lg-12">
                             <input type="submit" class="btn btn-primary float-right" value="Save" />
                         </div>

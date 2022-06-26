@@ -10,12 +10,26 @@
                 <li class="list-divider"></li>
                 {{-- <li class="nav-small-cap"><span class="hide-menu">Applications</span></li> --}}
 
+                @if(Auth::user()->role === 'admin')
+
                 <li class="sidebar-item">
                     <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
                         <i data-feather="book" class="feather-icon"></i><span class="hide-menu"> Master </span>
                     </a>
                     <ul class="collapse first-level base-level-line" aria-expanded="false">
-                        <li class="sidebar-item"><a href="{{ route('book') }}"> Book </a></li>
+                        <li class="sidebar-item"><a class="sidebar-link" href="{{ route('book') }}"> Book </a></li>
+                    </ul>
+                </li>
+
+                @endif
+
+                <li class="sidebar-item">
+                    <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
+                        <i data-feather="book" class="feather-icon"></i><span class="hide-menu"> Transactions </span>
+                    </a>
+                    <ul class="collapse first-level base-level-line" aria-expanded="false">
+                        <li class="sidebar-item"><a class="sidebar-link" href="{{ route('catalog') }}"> Katalog </a></li>
+                        <li class="sidebar-item"><a class="sidebar-link" href="{{ route('book') }}"> MyBook </a></li>
                     </ul>
                 </li>
 
@@ -24,7 +38,7 @@
                         <i data-feather="user" class="feather-icon"></i><span class="hide-menu"> Account </span>
                     </a>
                     <ul class="collapse first-level base-level-line" aria-expanded="false">
-                        <li class="sidebar-item"><a href="{{ route('book') }}"> Settings </a></li>
+                        <li class="sidebar-item"><a class="sidebar-link" href="{{ route('book') }}"> Settings </a></li>
                     </ul>
                 </li>
             </ul>

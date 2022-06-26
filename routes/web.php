@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BookController;
+use App\Http\Controllers\CatalogController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\HomeController;
@@ -24,13 +25,21 @@ Route::middleware('auth')->group(function(){
     Route::get('home', [HomeController::class, 'index'])->name('home');
 
     // Book Router
-    Route::get('book', [BookController::class, 'index'])->name('book');
-    Route::get('book/create', [BookController::class, 'show'])->name('book/create');
-    Route::get('book/edit/{book}', [BookController::class, 'show'])->name('book/edit');
-    Route::post('book/store', [BookController::class, 'store'])->name('book/store');
-    Route::put('book/store', [BookController::class, 'edit'])->name('book/store');
-    Route::delete('book/destroy/{book}', [BookController::class, 'destroy'])->name('book/destroy');
+    Route::group(['prefix' => 'book'], function(){
+        Route::get('/', [BookController::class, 'index'])->name('book');
+        Route::get('/create', [BookController::class, 'show'])->name('book/create');
+        Route::get('/edit/{book}', [BookController::class, 'show'])->name('book/edit');
+        Route::post('/store', [BookController::class, 'store'])->name('book/store');
+        Route::put('/store', [BookController::class, 'edit'])->name('book/store');
+        Route::post('/destroy/{book}', [BookController::class, 'destroy'])->name('book/destroy');
+    });
 
+    Route::group(['prefix' => 'catalog'], function(){
+        Route::get('/', [CatalogController::class, 'index'])->name('catalog');
+        Route::post('/store', [CatalogController::class, 'store'])->name('catalog/store');
+        Route::get('/filter', [CatalogController::class, 'filter'])->name('catalog/filter');
+        Route::post('/destroy/{book}', [CatalogController::class, 'destroy'])->name('catalog/destroy');
+    });
 
 });
 Route::get('actionLogout', [LoginController::class, 'actionLogout'])->name('actionLogout')->middleware('auth');

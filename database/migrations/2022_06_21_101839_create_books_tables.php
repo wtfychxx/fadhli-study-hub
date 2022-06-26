@@ -20,6 +20,7 @@ class CreateBooksTables extends Migration
             $table->string('publisher');
             $table->integer('release_year');
             $table->integer('page');
+            $table->integer('stock')->default(0);
             $table->timestamps();
         });
     }
@@ -31,6 +32,6 @@ class CreateBooksTables extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('books_tables');
+        Schema::dropIfExists('books');
     }
 }
