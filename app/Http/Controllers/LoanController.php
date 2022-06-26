@@ -60,9 +60,30 @@ class LoanController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
-        //
+    public function edit(Loan $loan){
+        $data = [
+            'status' => 'Non Active'
+        ];
+
+        $loan = Loan::findOrFail($loan->id);
+        $loan->update($data);
+
+        print_r($loan);exit;
+
+        if($loan){
+            return redirect()
+                ->route('mybook')
+                ->with([
+                    'success' => 'The book is successfully returned to library!'
+                ]);
+        }else{
+            return redirect()
+                ->back()
+                ->withInput()
+                ->with([
+                    'error' => 'Some problem occured, please try again'
+                ]);
+        }
     }
 
     /**

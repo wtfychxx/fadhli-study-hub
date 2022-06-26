@@ -39,14 +39,11 @@ Route::middleware('auth')->group(function(){
         Route::get('/', [CatalogController::class, 'index'])->name('catalog');
         Route::post('/store', [CatalogController::class, 'store'])->name('catalog/store');
         Route::get('/filter', [CatalogController::class, 'filter'])->name('catalog/filter');
-        Route::post('/destroy/{book}', [CatalogController::class, 'destroy'])->name('catalog/destroy');
     });
 
     Route::group(['prefix' => 'mybook'], function(){
         Route::get('/', [LoanController::class, 'index'])->name('mybook');
-        Route::post('/store', [CatalogController::class, 'store'])->name('catalog/store');
-        Route::get('/filter', [CatalogController::class, 'filter'])->name('catalog/filter');
-        Route::post('/destroy/{book}', [CatalogController::class, 'destroy'])->name('catalog/destroy');
+        Route::post('/return/{loan}', [LoanController::class, 'edit'])->name('mybook/return');
     });
 
 });

@@ -137,7 +137,7 @@ class BookController extends Controller
             'page' => $request->input('page')
         ];
 
-        $post = Book::findOrFail($book->id);
+        $book = Book::findOrFail($book->id);
         $book = Book::update($data);
 
         if($book){
