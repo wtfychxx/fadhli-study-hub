@@ -13,14 +13,14 @@ class CreateLoansTables extends Migration
      */
     public function up()
     {
-        $start_date = date('Y-m-d');  
-        $date = strtotime($start_date);
-        $date = strtotime("+7 day", $date);
-
         Schema::create('loans', function (Blueprint $table) {
+            $start_date = date('Y-m-d');  
+            $date = strtotime($start_date);
+            $date = strtotime("+7 day", $date);
+
             $table->id();
             $table->unsignedBigInteger('book__id');
-            $table->date('expire_date')->format('Y-m-d')->default($date);
+            $table->date('expire_date')->format('Y-m-d')->default(date('Y-m-d',$date));
             $table->unsignedBigInteger('user__id');
             $table->string('status')->default('active');
             $table->timestamps();

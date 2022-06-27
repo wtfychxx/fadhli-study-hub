@@ -68,7 +68,7 @@ class LoanController extends Controller
         $loan = Loan::findOrFail($loan->id);
         $loan->update($data);
 
-        print_r($loan);exit;
+        // dd($loan);
 
         if($loan){
             return redirect()
