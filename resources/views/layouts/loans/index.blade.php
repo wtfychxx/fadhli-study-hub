@@ -40,6 +40,7 @@
                                             <form action="{{ route('mybook/return', $row->id) }}" method="POST" id="frm_return{{ $row->id }}">
                                                 @csrf
                                                 <input type="hidden" name="id" value="{{ $row->id }}">
+                                                <input type="hidden" id="penalty" name="penalty">
                                             </form>
                                         </td>
                                         <td>{{ $row->loan_date }}</td>
@@ -55,15 +56,53 @@
     </div>
 @endsection
 
+@section('jsLibrary')
+<script src="{{ url('templates/libs/moment/moment.js') }}"></script>
+@endsection
+
 @section('jsFunctions')
 <script>
+    const data = {!! json_encode($loan->toArray()) !!}
+
+    const formatRupiah = (angka, prefix = 'Rp. ') => {
+		let number_string = angka.toString().replace(/[^,\d]/g, '').toString(),
+		split   		= number_string.split(','),
+		sisa     		= split[0].length % 3,
+		rupiah     		= split[0].substr(0, sisa),
+		ribuan     		= split[0].substr(sisa).match(/\d{3}/gi);
+
+		// tambahkan titik jika yang di input sudah menjadi angka ribuan
+		if(ribuan){
+			separator = sisa ? '.' : '';
+			rupiah += separator + ribuan.join('.');
+		}
+
+		rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
+		return `${prefix} ${rupiah}`
+	}
+
     $(document).ready(function(){
         $('#show_data').on('click', '.item-edit', function(){
             const id = $(this).data('id')
 
+            const selected = data.filter((entry) => entry.id)
+            const selectedData = selected[0]
+            const loanData = {
+                penaltyTotal: 0
+            }
+            const expireDate = moment(selectedData.expire_date)
+            const today = moment()
+            const differentDate = today.diff(expireDate, 'days')
+
+            if(differentDate > 0){
+                loanData.penaltyTotal = differentDate * 1000
+                document.querySelector('#penalty').value = loanData.penaltyTotal
+            }
+
             Swal.fire({
                 icon: 'question',
                 title: 'Are you sure you already return the book?',
+                text: `You returning ${differentDate} day after expire date, you should pay ${formatRupiah(loanData.penaltyTotal)}`,
                 showCancelButton: true,
                 cancelButtonText: "No, I'm not"
             }).then((result) => {

@@ -60,15 +60,14 @@ class LoanController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Loan $loan){
+    public function edit(Loan $loan, Request $request){
         $data = [
-            'status' => 'Non Active'
+            'status' => 'Non Active',
+            'penalty' => $request->input('penalty')
         ];
 
         $loan = Loan::findOrFail($loan->id);
         $loan->update($data);
-
-        // dd($loan);
 
         if($loan){
             return redirect()

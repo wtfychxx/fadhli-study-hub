@@ -9,5 +9,5 @@ class Loan extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['book__id', 'user__id', 'status'];
+    protected $fillable = ['book__id', 'user__id', 'status', 'penalty'];
 }
