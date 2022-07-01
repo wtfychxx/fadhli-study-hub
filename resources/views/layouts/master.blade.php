@@ -8,7 +8,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <!-- Favicon icon -->
-    <link rel="icon" type="image/png" sizes="16x16" href="{{ url('templates/images/favicon.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ url('book-u.png') }}">
     <title> Book-U - Library Management System </title>
     <link href="{{ url('templates/css/style.min.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="{{ url('templates/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css') }}">
