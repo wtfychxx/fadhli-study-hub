@@ -92,7 +92,8 @@
             }
             const expireDate = moment(selectedData.expire_date)
             const today = moment()
-            const differentDate = today.diff(expireDate, 'days')
+            const checkDifferentDay = today.diff(expireDate, 'days')
+            const differentDate = checkDifferentDay > 0 ? checkDifferentDay : 0 
 
             if(differentDate > 0){
                 loanData.penaltyTotal = differentDate * 1000
