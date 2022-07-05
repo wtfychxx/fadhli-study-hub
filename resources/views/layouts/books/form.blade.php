@@ -11,7 +11,7 @@
         @endif
         <div class="card col-lg-12">
             <div class="card-body">
-                <form action={{ route('book/store') }} method="POST">
+                <form action={{ $book->id !== '' || $book->id !== null ? route('book/update') : route('book/store') }} method="POST">
                     @csrf
                     <div class="row">
                         <label class="col-form-label col-lg-3"> Title </label>
